@@ -1,3 +1,8 @@
+// Manipulação do DOM
+
+var $question = document.getElementById("question");
+var $score = document.getElementById('score');
+var $feedback = document.getElementById('feedback');
 // Funções da View
 
 function update(element,content,klass){
@@ -8,12 +13,6 @@ function update(element,content,klass){
 		p.className = klass;
 	}
 }
-
-// Manipulação do DOM
-
-var $question = document.getElementById("question");
-var $score = document.getElementById('score');
-var $feedback = document.getElementById('feedback');
 
 // Mensagem de boas vindas ao usuário
 //	alert("Welcome to Quiz Ninja!");
@@ -29,6 +28,8 @@ var quiz = {
 
 var score = 0; // Inicializando a pontuação em 0
 
+update($score,score);
+
 play(quiz);
 
 function play(quiz){
@@ -41,16 +42,18 @@ function play(quiz){
 
 	// Função que faz a pergunta ao jogador
 	function ask(question){
-		return prompt(quiz.question + question);
+		update($question,quiz.question + question);
+		return prompt("Enter your answer: ");
 	}
 
 	// Função que verifica se a resposta está correta
 	function check(answer){
 		if(answer === quiz.questions[i].answer){
-			alert("Correct!");
+			update($feedback,"Correct","right");
 			score++; //Adiciona um ponto na pontuação
+			update($score,score);
 		} else {
-			alert("Wrong!");
+			update($feedback,"Wrong!","wrong");
 	}
 }
 	gameOver()
@@ -58,7 +61,7 @@ function play(quiz){
 
 // Função que informa ao jogador que o jogo finalizou e o placar obtido
 function gameOver(){
-	alert("Game Over, your scored "+ score + " points");
+	update($question, "Game Over, you scored " + score + " points!" );
 }
 	
 
